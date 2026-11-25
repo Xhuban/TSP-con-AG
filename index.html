@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AG para TSP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="encabezado">
+        <h1>Solución de TSP con Algoritmo Genético</h1>
+    </header>
+
+    <main class="layout">
+        <section class="zona-tablero" aria-label="Matriz de 20 por 20">
+            <canvas id="tablero" width="672" height="672" aria-label="Tablero: haz clic en una celda para colocar el inicio o un nodo"></canvas>
+            <!-- <p class="leyenda">
+                <span class="muestra muestra-inicio"></span> Inicio
+                <span class="muestra muestra-nodo"></span> Nodo a visitar
+                <span class="muestra muestra-ruta"></span> Mejor recorrido
+            </p> -->
+        </section>
+
+        <aside class="panel">
+            <section class="bloque">
+                <h2>1. Puntos</h2>
+
+                <fieldset class="modos">
+                    <legend>Colocar</legend>
+                    <label><input type="radio" name="modo" value="inicio" data-bloquea checked> Inicio</label>
+                    <label><input type="radio" name="modo" value="nodo" data-bloquea> Nodos</label>
+                </fieldset>
+
+                <div class="fila-botones">
+                    <!-- <button type="button" id="btn-ejemplo" class="secundario" data-bloquea>Cargar ejemplo del PDF</button> -->
+                    <button type="button" id="btn-limpiar" class="secundario" data-bloquea>Limpiar</button>
+                </div>
+
+                <div class="fila-aleatorios">
+                    <label for="num-aleatorios">Nodos aleatorios</label>
+                    <input type="number" id="num-aleatorios" value="10" min="1" max="30" data-bloquea>
+                    <button type="button" id="btn-aleatorios" class="secundario" data-bloquea>Generar</button>
+                </div>
+
+                <h3>Puntos colocados <span id="conteo-nodos" class="conteo">0 de 30</span></h3>
+                <ul id="lista-nodos" class="lista-nodos"></ul>
+            </section>
+
+            <section class="bloque">
+                <h2>2. Parámetros del algoritmo</h2>
+
+<!--                 <fieldset class="modos">
+                    <legend>Distancia entre puntos</legend>
+                    <label><input type="radio" name="metrica" value="manhattan" data-bloquea checked> Manhattan</label>
+                    <label><input type="radio" name="metrica" value="euclidiana" data-bloquea> Euclidiana</label>
+                </fieldset> -->
+
+                <div class="parametros">
+                    <label for="p-poblacion">Tamaño de la población</label>
+                    <input type="number" id="p-poblacion" value="50" min="4" max="1000" data-bloquea>
+
+                    <label for="p-generaciones">Máximo de generaciones</label>
+                    <input type="number" id="p-generaciones" value="1000" min="1" max="5000" data-bloquea>
+
+                    <label for="p-cruce">Probabilidad de cruce</label>
+                    <input type="number" id="p-cruce" value="0.8" min="0" max="1" step="0.05" data-bloquea>
+
+                    <label for="p-mutacion">Probabilidad de mutación</label>
+                    <input type="number" id="p-mutacion" value="0.03" min="0" max="1" step="0.01" data-bloquea>
+
+                    <label for="p-convergencia">Detener al converger (% de individuos iguales)</label>
+                    <input type="number" id="p-convergencia" value="90" min="50" max="100" step="5" data-bloquea>
+                </div>
+
+                <div class="fila-botones">
+                    <button type="button" id="btn-ejecutar" class="principal">Buscar recorrido</button>
+                    <button type="button" id="btn-detener" class="secundario" disabled>Detener</button>
+                </div>
+                <p id="mensaje" class="mensaje" role="status"></p>
+            </section>
+
+            <section class="bloque" aria-live="polite">
+                <h2>3. Resultado</h2>
+                <dl class="resultado">
+                    <dt>Orden de visita</dt>
+                    <dd id="res-ruta" class="ruta-texto">–</dd>
+                    <dt>Distancia total</dt>
+                    <dd id="res-distancia">–</dd>
+                    <dt>Encontrado en la generación</dt>
+                    <dd id="res-generacion">–</dd>
+                    <dt>Convergencia de la población</dt>
+                    <dd id="res-convergencia">–</dd>
+                </dl>
+                <p id="estado" class="estado"></p>
+
+                <canvas id="grafica" width="420" height="150" aria-label="Gráfica de convergencia: distancia del mejor recorrido y distancia promedio por generación"></canvas>
+                <p class="ayuda">Línea fuerte: mejor distancia de cada generación. Línea tenue: promedio de la población.</p>
+            </section>
+        </aside>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
